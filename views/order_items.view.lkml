@@ -36,7 +36,10 @@ view: order_items {
   }
 measure:demo {
 type: number
-sql:${id}
+sql:${id};;
+}
+measure: demi {
+  sql: ${id} ;;
 }
   measure: count {
     type: count
