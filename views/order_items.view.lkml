@@ -34,7 +34,7 @@ view: order_items {
     type: number
     sql: ${TABLE}.sale_price ;;
   }
-measure:{
+measure:demo {
 type: number
 sql:${id}
 }
