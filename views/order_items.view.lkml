@@ -35,10 +35,16 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
-  measure: demo {
+
+  measure: demo1 {
     sql: ${id} ;;
   }
 
+
+measure:demo {
+type: number
+sql:${id};;
+}
   measure: count {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]
