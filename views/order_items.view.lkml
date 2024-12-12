@@ -45,4 +45,34 @@ sql:${id};;
     type: count
     drill_fields: [id, orders.id, inventory_items.id]
   }
+  parameter: date_aggregation {
+    type: unquoted
+    allowed_value: {
+      label: "Date"
+      value: "date"
+    }
+    allowed_value: {
+      label: "Week"
+      value: "week"
+    }
+    allowed_value: {
+      label: "Month"
+      value: "month"
+    }
+    default_value: "date"
+    description: "Select the date aggregation level."
+  }
+  dimension: dynamic_order_creation_date {
+    type: date
+    sql: CASE
+          WHEN {% parameter date_aggregation %} = 'week' THEN
+            {% raw %} DATE_TRUNC('WEEK', ${TABLE}.order_creation_date) {% endraw %}
+          WHEN {% parameter date_aggregation %} = 'month' THEN
+            {% raw %} DATE_TRUNC('MONTH', ${TABLE}.order_creation_date) {% endraw %}
+          ELSE
+            ${TABLE}.order_creation_date
+        END ;;
+    label: "Order Creation Date"
+    description: "Dynamic Order Creation Date based on selected aggregation."
+  }
 }
