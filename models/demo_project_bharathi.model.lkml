@@ -11,18 +11,24 @@ datagroup: demo_project_bharathi_default_datagroup {
 persist_with: demo_project_bharathi_default_datagroup
 
 explore: billion_orders {
-  join: orders {
-    type: left_outer
+  sql_always_where:  ${orders.created_date} >= "2023-10-06";;
+  sql_always_having: ${users.id} = "12292";;
+
+  #always_filter: ${orders.status} ="pending" and ${users.state} = "Alabama";;
+   join: orders {
+      type: left_outer
     sql_on: ${billion_orders.order_id} = ${orders.id} ;;
     relationship: many_to_one
-  }
+    #sql_where: ${orders.created_date} >= "2023-10-06" ;;
 
-  join: users {
+  }
+   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
-  }
+    }
 }
+
 
 explore: connection_reg_r3 {}
 
@@ -69,6 +75,8 @@ explore: foo {}
 explore: human {}
 
 explore: hundred_million_orders {
+  #sql_always_having: ${users.id} = "12292"
+
   join: orders {
     type: left_outer
     sql_on: ${hundred_million_orders.order_id} = ${orders.id} ;;
