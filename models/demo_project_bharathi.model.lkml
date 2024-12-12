@@ -123,15 +123,20 @@ explore: korean_string {}
 explore: map_layer {}
 
 explore: orders {
+
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+ sql_always_where: ${created_date} IS not null ;;
+sql_always_having: ${user_id} IS NOT NULL ;;
 }
 
 explore: order_items {
+  always_filter: {filters:[orders.status: "Pending"]}
   join: orders {
+
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
     relationship: many_to_one
@@ -144,6 +149,7 @@ explore: order_items {
   }
 
   join: users {
+
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
@@ -154,6 +160,7 @@ explore: order_items {
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
     relationship: many_to_one
   }
+
 }
 
 explore: order_items_vijaya {
@@ -266,7 +273,9 @@ explore: test_space_in_column_name {}
 
 explore: thor {}
 
-explore: users {}
+explore: users {
+  always_filter: {filters:[users.state: "Alabama"]}
+}
 
 explore: user_data {
   join: users {
