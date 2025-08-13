@@ -47,6 +47,7 @@ view: users {
     type: string
     sql: ${TABLE}.state ;;
   }
+
   dimension: state_flag_image {
     type: string
     sql: ${state} ;;
