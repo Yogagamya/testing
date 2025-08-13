@@ -134,6 +134,8 @@ sql_always_having: ${user_id} IS NOT NULL ;;
 }
 
 explore: order_items {
+  #always_filter: {}
+  #filters: [order_items.status: "Complete", users.country: "USA"]
   always_filter: {filters:[orders.status: "Pending"]}
   join: orders {
 
