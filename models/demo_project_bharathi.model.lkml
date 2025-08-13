@@ -11,8 +11,8 @@ datagroup: demo_project_bharathi_default_datagroup {
 persist_with: demo_project_bharathi_default_datagroup
 
 explore: billion_orders {
-  sql_always_where:  ${orders.created_date} >= "2023-10-06";;
-  sql_always_having: ${users.id} = "12292";;
+ # sql_always_where:  ${orders.created_date} >= "2023-10-06";;
+  #sql_always_having: ${users.id} = "12292";;
 
   #always_filter: ${orders.status} ="pending" and ${users.state} = "Alabama";;
    join: orders {
