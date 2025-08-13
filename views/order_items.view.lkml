@@ -30,6 +30,36 @@ view: order_items {
     timeframes: [raw, time, date, week, month, quarter, year]
     sql: ${TABLE}.returned_at ;;
   }
+
+  parameter: date_granularity {
+    type: unquoted
+    allowed_value: {
+      label: "Break down by Day"
+      value: "day"
+    }
+    allowed_value: {
+      label: "Break down by Month"
+      value: "month"
+    }
+    allowed_value: {
+      label: "Break down by year"
+      value: "year"
+      }
+  }
+
+  dimension: date {
+    sql:
+    {% if date_granularity._parameter_value == 'day' %}
+      ${returned_date}
+    {% elsif date_granularity._parameter_value == 'month' %}
+      ${returned_month}
+      % elsif date_granularity._parameter_value == 'year' %}
+      ${returned_year}
+    {% else %}
+      ${returned_date}
+    {% endif %};;
+  }
+
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
